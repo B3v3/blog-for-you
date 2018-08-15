@@ -1,5 +1,7 @@
 <h1> <%= @post.title %></h1>
 
+<%= render partial: 'shared/errors', locals: {model: @post} %>
+
 <%= form_for @post, url: {action: "update"} do |f| %>
 
   <%= f.label :content %><br />

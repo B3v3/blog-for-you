@@ -1,0 +1,8 @@
+<%= render partial: 'shared/errors', locals: {model: @user} %>
+
+<%= form_for @user, url: {action: "update"} do |f| %>
+  <%= f.label :nickname %><br />
+  <%= f.text_field :nickname %><br />
+
+  <%= f.button :submit %>
+<% end %>

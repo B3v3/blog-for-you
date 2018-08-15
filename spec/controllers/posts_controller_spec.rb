@@ -3,21 +3,21 @@ require 'rails_helper'
 RSpec.describe PostsController, type: :controller do
   let(:first_post) { create(:post)}
   context "GET show" do
-    it "shows a certain poem" do
+    it "shows a certain post" do
       get :show, params: {id: first_post.id}
       expect(assigns (:post)). to eq(first_post)
     end
   end
 
   context "GET new" do
-    it "assigns a blank poem to view" do
+    it "assigns a blank post to view" do
       get :new
       expect(assigns(:post)).to be_a_new(Post)
     end
   end
 
   context "GET edit" do
-    it "assigns a certain poem to view" do
+    it "assigns a certain post to view" do
       get :edit, params: {id: first_post.id}
       expect(assigns (:post)).to eq(first_post)
     end
@@ -46,13 +46,13 @@ RSpec.describe PostsController, type: :controller do
     end
   end
 
-  context "PUT update" do
+  context "PATCH update" do
     context "Valid Params" do
       it "redirects to show page" do
         patch :update, params: {id: first_post.id, post: {title: 'updated'}}
         expect(response).to redirect_to(post_path(first_post))
       end
-      it "changes a poem in database" do
+      it "changes a post in database" do
         patch :update, params: {id: first_post.id, post: {title: 'updated'}}
         first_post.reload
         expect(first_post.title).to eq("updated")
@@ -72,7 +72,7 @@ RSpec.describe PostsController, type: :controller do
   end
 
   context "DELETE destroy" do
-    it "deletes a poem" do
+    it "deletes a post" do
       first_post #just to add record in DB
       expect{ delete :destroy, params: {id: first_post.id}
     }.to change(Post, :count).by(-1)

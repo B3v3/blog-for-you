@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
 resources :posts
-root 'posts#new'
+resources :users
+root 'users#new'
 end
