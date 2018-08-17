@@ -5,6 +5,7 @@ RSpec.describe Post, type: :model do
 
   describe 'validations' do
     it 'accepts valid post' do
+      create(:user)
       expect(post.valid?).to be_truthy
     end
 

@@ -10,6 +10,11 @@ class User < ApplicationRecord
   validates :email, allow_nil: true, length: { maximum: 199 },
                                      format: { with: VALID_EMAIL_REGEX },
                                      uniqueness: { case_sensitive: false }
+
   validates :password, allow_nil: true, length: { minimum: 6 }
+  validates :password_confirmation, allow_nil: true, length: { minimum: 6 }
+
   has_secure_password
+
+  has_many :posts, dependent: :destroy
 end

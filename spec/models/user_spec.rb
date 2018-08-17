@@ -61,6 +61,14 @@ RSpec.describe User, type: :model do
         user.password = "a"*5
         expect(user.valid?).to be_falsey
       end
+      it "requires a password confirmation" do
+        user.password_confirmation = ""
+        expect(user.valid?).to be_falsey
+      end
+      it "requires a password confirmation same as password" do
+        user.password_confirmation = '1232afsasfaf'
+        expect(user.valid?).to be_falsey
+      end
     end
   end
 end
