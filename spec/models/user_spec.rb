@@ -71,4 +71,37 @@ RSpec.describe User, type: :model do
       end
     end
   end
-end
+
+    describe 'followings' do
+      before(:each) do
+        @user = create(:user)
+        @user2 = create(:user2)
+      end
+
+      it "should not have any follows at start" do
+        expect(@user.following?(@user2)).to be_falsey
+      end
+      it "should follow a user" do
+        @user.follow(@user2)
+        expect(@user.following?(@user2)).to be_truthy
+        expect(@user2.followers.include?(@user)).to be_truthy
+      end
+      it "should unfollow a user" do
+        @user.follow(@user2)
+        @user.unfollow(@user2)
+        expect(@user.following?(@user2)).to be_falsey
+      end
+
+      describe 'user feed' do
+        it "should show all posts of followed users" do
+          create(:post)
+          create(:first_post)
+          @user2.follow(@user)
+          expect(@user2.feed).to eq(@user.posts)
+        end
+        it "should dont show anything at start" do
+          expect(@user.feed).to eq([])
+        end
+      end
+    end
+  end

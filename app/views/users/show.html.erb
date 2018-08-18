@@ -1,1 +1,4 @@
 <%= current_user.nickname %>
+<% current_user.feed.each do |post| %>
+  <%= post.title %>
+<% end %>
