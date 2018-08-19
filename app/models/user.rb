@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_posts, through: :likes, source: :post
 
+  has_many :comments, dependent: :destroy
+
 
   before_save { self.email = email.downcase }
 
@@ -46,5 +48,15 @@ class User < ApplicationRecord
   def feed
     following_ids = self.following.collect(&:id)
     Post.where(user_id: following_ids)
+  end
+
+  def notify_followers
+    followers.each do |f|
+      f.update_attribute(:notification_count, (f.notification_count + 1))
+    end
+  end
+
+  def clear_notifications
+    update_attribute(:notification_count, 0)
   end
 end

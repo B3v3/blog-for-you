@@ -59,6 +59,13 @@ RSpec.describe PostsController, type: :controller do
         expect{ post :create, params: {post: attributes_for(:first_post)}
       }.to change(Post, :count).by(1)
       end
+      it "notify a followers of creator" do
+        log_in_as(second_user)
+        @first_user.follow(second_user)
+        post :create, params: {post: attributes_for(:first_post)}
+        @first_user.reload
+        expect(@first_user.notification_count).to eql(1)
+      end
     end
     context "Invalid Params" do
       it 'render new template' do

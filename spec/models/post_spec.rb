@@ -40,7 +40,7 @@ RSpec.describe Post, type: :model do
         expect(post.valid?).to be_falsey
       end
       it "should not be longer than 10000 characters" do
-        post.content = 'a'*10001
+        post.content = 'a'*20001
         expect(post.valid?).to be_falsey
       end
     end

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   post 'follow',     to: 'follows#create'
   delete 'unfollow', to: 'follows#destroy'
 
+  post 'comment',    to: 'comments#create'
+  patch 'comment',    to: 'comments#update'
+
 resources :posts
 resources :users
 root 'users#new'

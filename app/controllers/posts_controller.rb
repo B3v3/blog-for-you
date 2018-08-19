@@ -13,6 +13,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
+      current_user.notify_followers
       flash[:success] = 'Your post has been created!'
       redirect_to @post
     else
