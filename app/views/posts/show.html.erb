@@ -1,2 +1,13 @@
 <h1><%= @post.title %></h1>
+<h3>by <%= @post.user.nickname %></h3>
+
+<p>  <%= "#{pluralize(@post.likes.count, 'like')}!"%> </p>
+     <%= render 'like_button' %>
+
 <p><%= @post.content %></p>
+
+<%= link_to 'Return', @post.user %>
+
+<h3> Comments: </h3>
+  <%= render 'comment_form' %>
+  <%= render 'comments' %>

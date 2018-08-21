@@ -10,19 +10,20 @@ RSpec.describe CommentsController, type: :controller do
   describe 'POST create' do
     it "creates a comment for specific post" do
       log_in_as(user)
-      expect{ post :create, params: {id: f_post.id, comment:
+      expect{ post :create, params: {post_id: f_post.id, comment:
         { content: comment.content}}}.to change(f_post.comments, :count).by(1)
     end
 
     it "assigns a current user as a comment creator" do
       log_in_as(user)
-      post :create, params: {id: f_post.id, comment:{ content: comment.content}}
+      post :create, params: {post_id: f_post.id,
+                             comment:{ content: comment.content}}
       expect(Comment.last.user).to eql(user)
     end
 
     it "renders a post when comment have a valid params" do
       log_in_as(user)
-      post :create, params: {id: f_post.id, comment:{ content: ''}}
+      post :create, params: {post_id: f_post.id, comment:{ content: ''}}
       expect(response).to redirect_to(f_post)
     end
   end
@@ -32,7 +33,7 @@ RSpec.describe CommentsController, type: :controller do
       log_in_as(user)
       f_post
       comment.save
-      patch :update, params: { id: 1}
+      patch :update, params: { post_id: f_post.id, id: comment.id }
       comment.reload
       expect(comment.content).to eql("Deleted by D3v3")
     end

@@ -55,6 +55,34 @@ class UsersController < ApplicationController
     end
   end
 
+  def following
+    @user = User.find(params[:id])
+    if not_owner_check(@user)
+      redirect_to current_user
+    else
+      @following = @user.following
+    end
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    if not_owner_check(@user)
+      redirect_to current_user
+    else
+      @followers = @user.followers
+    end
+  end
+
+  def feed
+    @user = User.find(params[:id])
+    if not_owner_check(@user)
+      redirect_to current_user
+    else
+      @user.clear_notifications
+      @feed = @user.feed
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:nickname, :email, :password,

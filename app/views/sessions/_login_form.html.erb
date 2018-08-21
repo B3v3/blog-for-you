@@ -1,0 +1,10 @@
+<%= form_for(:sessions, url: {action: 'create'}, html: {class: 'login'}) do |f| %>
+  <%= f.label :email %><br />
+  <%= f.email_field :email %><br />
+
+  <%= f.label :password %><br />
+  <%= f.password_field :password %><br />
+
+  <%= f.submit "Login" %>
+
+<% end %>

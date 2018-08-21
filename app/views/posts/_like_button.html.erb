@@ -1,0 +1,7 @@
+<% if current_user != @post.user %>
+  <% if @post.is_liked_by?(current_user) %>
+    <%= render 'dislike' %>
+  <% else %>
+    <%= render 'like' %>
+    <% end %>
+<% end %>

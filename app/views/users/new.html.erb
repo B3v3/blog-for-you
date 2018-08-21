@@ -1,17 +1,5 @@
+
+<h2> Welcome! Register yourself... </h2>
 <%= render partial: 'shared/errors', locals: {model: @user} %>
-
-<%= form_for @user, url: {action: "create"}, html: {class: 'register'} do |f| %>
-  <%= f.label :nickname %><br />
-  <%= f.text_field :nickname %><br />
-
-  <%= f.label :email %><br />
-  <%= f.email_field :email %><br />
-
-  <%= f.label :password %><br />
-  <%= f.password_field :password %><br />
-
-  <%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %><br />
-
-  <%= f.submit 'Register' %>
-<% end %>
+<%= render partial: 'create_account_form', locals: {model: @user} %>
+<h3> or maybe you <%= link_to 'have a account?', login_path %></h3>

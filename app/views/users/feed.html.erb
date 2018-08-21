@@ -1,0 +1,4 @@
+<% @feed.each do |post| %>
+  <p> <%= link_to "#{post.title}", post %>,
+   by <%= link_to "#{post.user.nickname}", post.user%></p>
+<% end %>

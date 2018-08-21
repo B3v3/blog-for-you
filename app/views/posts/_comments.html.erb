@@ -1,0 +1,11 @@
+<% if @post.comments.any? %>
+  <% @post.comments.each do |comment| %>
+  <h4>
+   <% if comment.user %>
+    <%= (link_to "#{comment.user.nickname}", comment.user) +
+         " wrote: #{comment.content} "%>
+    <%= render partial: 'comments/comment_delete', locals: {comment: comment}%>
+   <% end %>
+  </h4>
+  <% end %>
+<% end %>

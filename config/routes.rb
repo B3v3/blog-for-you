@@ -3,15 +3,20 @@ Rails.application.routes.draw do
   post 'login',      to: 'sessions#create'
   delete 'logout',   to: 'sessions#destroy'
 
+  resources :posts
+
+  resources :users
+  get 'users/:id/feed', to: 'users#feed', as: 'feed_user'
+  get 'users/:id/followers', to: 'users#followers', as: 'followers_user'
+  get 'users/:id/following', to: 'users#following', as: 'following_user'
+
   get 'register',    to: 'users#new'
 
-  post 'follow',     to: 'follows#create'
-  delete 'unfollow', to: 'follows#destroy'
+  resources :follows,  only: [:create, :destroy]
 
-  post 'comment',    to: 'comments#create'
-  patch 'comment',    to: 'comments#update'
+  resources :likes,  only: [:create, :destroy]
 
-resources :posts
-resources :users
-root 'users#new'
+  resources :comments, only: [:create, :update]
+
+  root 'users#new'
 end

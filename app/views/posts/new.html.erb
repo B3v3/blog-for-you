@@ -1,12 +1,4 @@
 <%= render partial: 'shared/errors', locals: {model: @post} %>
 
-
-<%= form_for @post, url: {action: "create"} do |f| %>
-  <%= f.label :title %><br />
-  <%= f.text_field :title %><br />
-
-  <%= f.label :content %><br />
-  <%= f.text_area :content %><br />
-
-  <%= f.button :submit %>
-<% end %>
+<%= render 'post_form' %>
+<%= link_to 'Return', current_user %>

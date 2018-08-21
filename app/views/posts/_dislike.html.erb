@@ -1,0 +1,5 @@
+<%= form_for(@post.likes.find_by(user_id: current_user.id),
+             html: { method: :delete },
+             remote: true) do |f| %>
+  <%= f.submit "Dislike!" %>
+<% end %>
