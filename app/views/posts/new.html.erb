@@ -1,4 +1,8 @@
-<%= render partial: 'shared/errors', locals: {model: @post} %>
+<div class='create_form'>
+  <div class='post_create'>
+    <%= render partial: 'shared/errors', locals: {model: @post} %>
 
-<%= render 'post_form' %>
-<%= link_to 'Return', current_user %>
+    <%= render 'post_form' %>
+  <div class='return_btn'>  <%= link_to 'Return', current_user %></div>
+  <div>
+</div>

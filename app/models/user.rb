@@ -1,5 +1,9 @@
 class User < ApplicationRecord
-   has_many :posts, dependent: :destroy
+  attr_accessor :reset_token
+  extend FriendlyId
+    friendly_id :nickname, use: [:slugged, :finders]
+
+   has_many :posts, :dependent => :destroy
 
    has_many :active_follows,      class_name:  "Follow",
                                   foreign_key: "follower_id",
@@ -17,7 +21,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
 
 
-  before_save { self.email = email.downcase }
+  before_save :downcase_email
 
   VALID_NAME_REGEX = /\A[a-z0-9\-_]+\z/i
   validates :nickname, presence: true, length: { minimum: 3, maximum: 25 },
@@ -32,6 +36,10 @@ class User < ApplicationRecord
   validates :password, allow_nil: true, length: { minimum: 6 }
   validates :password_confirmation, allow_nil: true, length: { minimum: 6 }
   has_secure_password
+
+  def downcase_email
+    self.email = email.downcase
+  end
 
   def follow(other_user)
     following << other_user
@@ -50,13 +58,38 @@ class User < ApplicationRecord
     Post.where(user_id: following_ids)
   end
 
-  def notify_followers
+  def notify_followers(post)
     followers.each do |f|
       f.update_attribute(:notification_count, (f.notification_count + 1))
+    end
+    send_email_to_followers(post)
+  end
+
+  def send_email_to_followers(post)
+    followers.where(send_email_acceptance: true).each do |follower|
+      UserMailer.notify_user(follower, post).deliver_now
     end
   end
 
   def clear_notifications
     update_attribute(:notification_count, 0)
   end
+
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def create_reset_digest
+    update_attribute(:password_reset_digest,  User.new_token)
+    update_attribute(:password_reset_sent_at, Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  def password_reset_expired?
+    password_reset_sent_at < 2.hours.ago
+  end
+  
 end

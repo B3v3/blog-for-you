@@ -1,13 +1,26 @@
-<h1><%= @post.title %></h1>
-<h3>by <%= @post.user.nickname %></h3>
 
-<p>  <%= "#{pluralize(@post.likes.count, 'like')}!"%> </p>
-     <%= render 'like_button' %>
+  <h1><%= @post.title %></h1>
+  <h3>by <%= @post.user.nickname %></h3>
+  
+<div class='edit_post'>
+  <% if current_user == @post.user %>
+    <%= link_to 'Edit Post', edit_post_path(@post) %>
+  <% end %>
+</div>
 
-<p><%= @post.content %></p>
+<div class="show_post">
+  <div class='likes'>
+         <%= "#{pluralize(@post.likes.count, 'like')}!"%>
+         <%= render 'like_button' %>
+  </div>
+  <p><%= @post.content %></p>
 
-<%= link_to 'Return', @post.user %>
+  <div class='return_btn'><%= link_to 'Return', @post.user %></div>
+</div>
 
-<h3> Comments: </h3>
-  <%= render 'comment_form' %>
+<div class='create_comment'>
+  <h3> Comments: </h3>
+    <%= render 'comment_form' %>
+</div>
+
   <%= render 'comments' %>

@@ -1,14 +1,17 @@
-<p> <%= @user.followers.count %>
-    <% if current_user == @user %>
-      <%= link_to 'followers!', followers_user_url(@user) %>
-    <% else %>
-      followers!
-    <% end %>
-</p>
-<p> <%= @user.following.count %>
-  <% if current_user == @user %>
-    <%= link_to 'followed!', following_user_url(@user) %>
-  <% else %>
-    followed!
-  <% end %>
-</p>
+<div class='follow'>
+  <p>
+    <div class='follow_btn'><%= render 'follow_button' %></div>
+     <%= @user.followers.count %>
+        <% if current_user == @user %>
+            <%= link_to 'followers!', followers_user_url(@user) %>
+          <% else %>
+            followers!
+        <% end %>
+      <%= @user.following.count %>
+        <% if current_user == @user %>
+            <%= link_to 'followed!', following_user_url(@user) %>
+          <% else %>
+            followed!
+        <% end %>
+  </p>
+</div>

@@ -1,3 +1,10 @@
-<% @following.each do |user| %>
-  <%= link_to "#{user.nickname}", user %>
-<% end %>
+<div class="followers_and_followed">
+  <h3> Followed: </h3>
+  <ul>
+    <%= paginate @following %>
+    <% @following.each do |user| %>
+      <li><%= link_to "#{user.nickname}", user %></li>
+    <% end %>
+  </ul>
+</div>
+<%= render 'empty_follow' if @following.empty? %>

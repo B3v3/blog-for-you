@@ -1,5 +1,5 @@
 <%= form_for(@post.comments.build) do |f| %>
   <%= hidden_field_tag :post_id, @post.id %>
-  <%= f.text_area :content %><br />
+  <%= f.text_area :content, size: "75x4" %><br />
   <%= f.submit 'Submit' %>
 <% end %>

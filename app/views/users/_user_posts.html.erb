@@ -1,4 +1,7 @@
-<% @user.posts.each do |post| %>
+<%= paginate @posts %>
+<% @posts.each do |post| %>
+<div class='post'>
   <h3> <%= link_to "#{post.title}", post %> </h3>
   <p> <%= "#{pluralize(post.likes.count, 'like')}!"%><p>
+</div>
 <% end %>

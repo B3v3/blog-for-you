@@ -1,3 +1,53 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+h1,h3 {
+  text-align: center
+}
+
+.post_create h3 {
+  font-size: 33px;
+}
+.post_create label {
+  font-size: 25px;
+}
+
+.show_post {
+  word-break: break-all;
+  margin: auto;
+  width: 38%;
+  border: 25px;
+  padding: 55px;
+}
+
+.create_comment {
+  margin: auto;
+  text-align: center;
+  border: 25px;
+  padding: 55px;
+}
+
+.likes {
+  .new_like, .edit_like {
+    float: right;
+  }
+}
+
+.comment {
+  text-align: left;
+  word-break: break-all;
+  background-color: white;
+  width: 500px;
+  padding: 25px;
+  margin-left: auto;
+  margin-right: auto;
+
+    .edit_comment {
+    float: right;
+  }
+}
+
+.edit_post {
+  text-align: center;
+}

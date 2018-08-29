@@ -1,4 +1,12 @@
-<% @feed.each do |post| %>
-  <p> <%= link_to "#{post.title}", post %>,
-   by <%= link_to "#{post.user.nickname}", post.user%></p>
+<% if @feed.any? %>
+  <div class="feed">
+  <h4> Followed user's posts:</h4>
+  <%= paginate @feed %>
+    <% @feed.each do |post| %>
+      <p> <%= link_to "#{post.title}", post %>,
+       by <%= link_to "#{post.user.nickname}", post.user%></p>
+    <% end %>
+  </div>
+<% else %>
+    <%= render 'empty_feed' %>
 <% end %>

@@ -1,4 +1,7 @@
 class Post < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :finders]
+
   belongs_to :user
 
 
@@ -7,6 +10,9 @@ class Post < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+  default_scope -> { order(created_at: :desc)}
+
+  paginates_per 15
 
   validates :title, presence: true, uniqueness: true,  length: { minimum: 6,
                                                                  maximum: 120 }

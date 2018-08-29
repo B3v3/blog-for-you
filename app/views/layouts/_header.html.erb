@@ -1,6 +1,12 @@
+<div class="header">
+  Blog-for-you-site
 <%  if current_user %>
-  <%= (link_to 'Logout', logout_path, method: :delete)%>
-  <%= (link_to  "Feed(#{current_user.notification_count})",
-                 feed_user_url(current_user)) %>
-  <%= (link_to "#{current_user.nickname}", current_user)%>
-<% end %>
+  <div class ="header-right">
+    <%= (link_to "#{current_user.nickname}", current_user)%>   |
+    <%= (link_to  " Feed(#{current_user.notification_count})",
+                   feed_user_url(current_user)) %>             |
+    <%= (link_to 'Settings', edit_user_path(current_user))%>   |
+    <%= (link_to ' Logout', logout_path, method: :delete)%>
+  </div>  
+    <% end %>
+</div>

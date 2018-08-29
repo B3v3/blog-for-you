@@ -3,7 +3,8 @@ class PostsController < ApplicationController
 
   #actions for logged in users
   def show
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
+    @comments = @post.comments.order(:created_at).page params[:page]
   end
 
   def new
@@ -13,7 +14,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      current_user.notify_followers
+      current_user.notify_followers(@post)
       flash[:success] = 'Your post has been created!'
       redirect_to @post
     else
@@ -23,14 +24,14 @@ class PostsController < ApplicationController
 
   #actions for owners of posts
   def edit
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
     if not_owner_check(@post.user)
       redirect_to current_user
     end
   end
 
   def update
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
     if not_owner_check(@post.user)
       redirect_to current_user
     else
@@ -44,11 +45,11 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
     if not_owner_check(@post.user)
       redirect_to current_user
     else
-      @post.delete
+      @post.destroy
       redirect_to root_path
     end
   end

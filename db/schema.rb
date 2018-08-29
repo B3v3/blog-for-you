@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_19_211119) do
+ActiveRecord::Schema.define(version: 2018_08_27_163920) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -34,6 +34,18 @@ ActiveRecord::Schema.define(version: 2018_08_19_211119) do
     t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
   create_table "likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "post_id"
@@ -50,6 +62,7 @@ ActiveRecord::Schema.define(version: 2018_08_19_211119) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "slug"
     t.index ["title"], name: "index_posts_on_title", unique: true
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -62,6 +75,10 @@ ActiveRecord::Schema.define(version: 2018_08_19_211119) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "notification_count", default: 0
+    t.string "slug"
+    t.boolean "send_email_acceptance", default: false
+    t.string "password_reset_digest"
+    t.datetime "password_reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
   end

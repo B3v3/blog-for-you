@@ -104,4 +104,32 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    describe 'Destroying' do
+      before(:each) do
+        @user = create(:user)
+      end
+
+        it "should delete user posts" do
+          create(:post)
+          expect{ @user.destroy}.to change(Post, :count).by(-1)
+        end
+        it "should delete user follows" do
+          create(:user2)
+          create(:follow)
+          expect{ @user.destroy}.to change(Follow, :count).by(-1)
+        end
+
+        it "should delete user comments" do
+          create(:post)
+          create(:comment)
+          expect{ @user.destroy}.to change(Comment, :count).by(-1)
+        end
+
+        it "should delete user likes" do
+          create(:post)
+          create(:like)
+          expect{ @user.destroy}.to change(Like, :count).by(-1)
+        end
+    end
   end

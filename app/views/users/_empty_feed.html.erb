@@ -1,0 +1,12 @@
+<div class='empty_feed'>
+<h3> You don't have any posts in feed :c </h3>
+<p>...follow someone!</p>
+</div>
+
+<div class="feed">
+<h4> Grab some most recent posts!</h4>
+    <% @most_recent_posts.each do |post| %>
+      <p> <%= link_to "#{post.title}", post %>,
+       by <%= link_to "#{post.user.nickname}", post.user%></p>
+    <% end %>
+</div>

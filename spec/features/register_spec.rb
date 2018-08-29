@@ -1,7 +1,7 @@
 RSpec.describe 'register', type: :feature do
   scenario 'valid params' do
-    visit '/'
-    within '.register' do
+    visit '/register'
+    within '.create_form .register' do
       fill_in 'Nickname', with: 'D3v3'
       fill_in 'Email', with: 'D3v3@mymail.ru'
       fill_in 'Password', with: 'helloworld'
@@ -12,8 +12,8 @@ RSpec.describe 'register', type: :feature do
   end
 
   scenario 'invalid params' do
-    visit '/'
-    within '.register' do
+    visit '/register'
+    within '.create_form .register' do
       fill_in 'Nickname', with: 'D3v3'
       fill_in 'Email', with: ''
       fill_in 'Password', with: 'password'

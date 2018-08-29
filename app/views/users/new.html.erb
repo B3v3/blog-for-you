@@ -1,5 +1,6 @@
-
-<h2> Welcome! Register yourself... </h2>
-<%= render partial: 'shared/errors', locals: {model: @user} %>
-<%= render partial: 'create_account_form', locals: {model: @user} %>
-<h3> or maybe you <%= link_to 'have a account?', login_path %></h3>
+<div class= "create_form">
+  <h2> Welcome! Register yourself... </h2>
+  <%= render partial: 'shared/errors', locals: {model: @user} %>
+  <%= render partial: 'create_account_form', locals: {model: @user} %>
+  <h3> or maybe you <%= link_to 'have a account?', login_path %></h3>
+</div>

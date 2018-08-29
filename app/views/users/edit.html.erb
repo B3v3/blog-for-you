@@ -1,8 +1,20 @@
-<%= render partial: 'shared/errors', locals: {model: @user} %>
+<div class='create_form'>
+  <%= render partial: 'shared/errors', locals: {model: @user} %>
+  <%= form_for @user, url: {action: "update"} do |f| %>
 
-<%= form_for @user, url: {action: "update"} do |f| %>
-  <%= f.label :nickname %><br />
-  <%= f.text_field :nickname %><br />
+    <%= f.label :nickname %><br />
+    <%= f.text_field :nickname %><br />
 
-  <%= f.button :submit %>
-<% end %>
+    <%= f.label "Get Emails" %>
+    <%= f.check_box :send_email_acceptance, {}, true, false %> <br />
+
+    <%= f.button :Submit %>
+  <% end %>
+
+</div>
+
+<div class="delete_form">
+<p> Delete account: </p>
+<%= link_to "DELETE", @user, method: :delete,
+                                 data: { confirm: "You sure? :c"} %>
+</div>

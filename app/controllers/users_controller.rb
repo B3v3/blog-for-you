@@ -4,7 +4,8 @@ class UsersController < ApplicationController
 
   #actions for logged in users
   def show
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
+    @posts = @user.posts.order(:created_at).page params[:page]
   end
 
   #actions to register a account
@@ -25,14 +26,14 @@ class UsersController < ApplicationController
 
   #actions for owner of account
   def edit
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     if not_owner_check(@user)
       redirect_to current_user
     end
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     if not_owner_check(@user)
       redirect_to current_user
     else
@@ -46,46 +47,49 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     if not_owner_check(@user)
       redirect_to current_user
     else
-      @user.delete
+      @user.destroy
       redirect_to root_path
     end
   end
 
   def following
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     if not_owner_check(@user)
       redirect_to current_user
     else
-      @following = @user.following
+      @following = @user.following.order(:created_at).page params[:page]
     end
   end
 
   def followers
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     if not_owner_check(@user)
       redirect_to current_user
     else
-      @followers = @user.followers
+      @followers = @user.followers.order(:created_at).page params[:page]
     end
   end
 
   def feed
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     if not_owner_check(@user)
       redirect_to current_user
     else
       @user.clear_notifications
-      @feed = @user.feed
+      @feed = @user.feed.order(:created_at).page params[:page]
+        if !@feed.any?
+          @most_recent_posts = Post.all.limit(10)
+        end
     end
   end
 
   private
   def user_params
-    params.require(:user).permit(:nickname, :email, :password,
-                                                    :password_confirmation)
+    params.require(:user).permit(:nickname, :email, :send_email_acceptance,
+                                 :password, :password_confirmation)
   end
 end

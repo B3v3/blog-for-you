@@ -1,5 +1,5 @@
-<%= render 'user' %>
+<div class="user"><%= render 'user' %></div>
 <h2>
   <%= (link_to 'Create new post!', new_post_path) if @user == current_user %>
-</h2> 
-<%= render 'user_posts' %>
+</h2>
+<div class="user_posts"><%= render 'user_posts' %></div>
