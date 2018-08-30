@@ -1,7 +1,8 @@
+<% provide(:title, "#{@post.title}") %>
 
   <h1><%= @post.title %></h1>
   <h3>by <%= @post.user.nickname %></h3>
-  
+
 <div class='edit_post'>
   <% if current_user == @post.user %>
     <%= link_to 'Edit Post', edit_post_path(@post) %>

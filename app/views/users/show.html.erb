@@ -1,3 +1,4 @@
+<% provide(:title, "#{@user.nickname}") %>
 <div class="user"><%= render 'user' %></div>
 <h2>
   <%= (link_to 'Create new post!', new_post_path) if @user == current_user %>
