@@ -39,6 +39,20 @@
   color: white;
 }
 
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #0e1016;
+    color: white;
+}
+
+.footer p {
+  color: white;
+  float: right;
+}
+
 .create_form {
   margin: auto;
   width: 20%;
