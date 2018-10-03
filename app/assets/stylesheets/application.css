@@ -47,6 +47,9 @@
     background-color: #0e1016;
     color: white;
 }
+.footer a {
+  color: white;
+}
 
 .footer p {
   color: white;
